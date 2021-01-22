@@ -15,8 +15,7 @@ pipeline {
                 withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins/']) {
                     sh 'terraform init -input=false'
                     sh "terraform plan -input=false -out tfplan"
-                    sh 'terraform show -no-color tfplan > tfplan.txt'
-                    }                
+                    sh 'terraform show -no-color tfplan > tfplan.txt'         
                 }
             }
         }
