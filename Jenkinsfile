@@ -2,24 +2,22 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'version', defaultValue: '', description: 'Version variable to pass to Terraform')
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
     }
     
     environment {
         TF_IN_AUTOMATION      = '1'
-        PATH+EXTRA            = '/var/lib/jenkins/plugins/'
     }
 
     stages {
         stage('Plan') {
             steps {
-                script {
-                    currentBuild.displayName = params.version
+                withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins/']) {
+                    sh 'terraform init -input=false'
+                    sh "terraform plan -input=false -out tfplan"
+                    sh 'terraform show -no-color tfplan > tfplan.txt'
+                    }                
                 }
-                sh 'terraform init -input=false'
-                sh "terraform plan -input=false -out tfplan"
-                sh 'terraform show -no-color tfplan > tfplan.txt'
             }
         }
 
@@ -41,7 +39,9 @@ pipeline {
 
         stage('Apply') {
             steps {
-                sh "terraform apply -input=false tfplan"
+                withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins/']) {
+                    sh "terraform apply -input=false tfplan"
+                }                
             }
         }
     }
