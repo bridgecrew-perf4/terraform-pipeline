@@ -8,6 +8,7 @@ pipeline {
     
     environment {
         TF_IN_AUTOMATION      = '1'
+        PATH                  = '$PATH:/var/lib/jenkins/plugins/'
     }
 
     stages {
