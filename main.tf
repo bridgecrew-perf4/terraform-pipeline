@@ -8,9 +8,9 @@ terraform {
 }
 
 provider "ontap" {
-	username = "admin"
-	password = "Netapp1!"
-	cluster = "10.216.2.130"
+	username = var.ONTAP_USERNAME
+	password = var.ONTAP_PASSWORD
+	cluster = var.ONTAP_CLUSTER
 }
 
 /*
