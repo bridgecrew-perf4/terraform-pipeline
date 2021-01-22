@@ -19,7 +19,7 @@ pipeline {
         stage('Plan') {
             steps {
                 withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins']) {
-                    sh 'terraform init -input=false -backed-config="access_key=$AWS_ACCESS_KEY" backed-config="secret_key=$AWS_ACCESS_KEY"'
+                    sh 'terraform init -input=false -backed-config=\"access_key=$AWS_ACCESS_KEY\" backed-config=\"secret_key=$AWS_ACCESS_KEY\"'
                     sh "terraform plan -input=false -out tfplan"
                     sh 'terraform show -no-color tfplan > tfplan.txt'         
                 }
