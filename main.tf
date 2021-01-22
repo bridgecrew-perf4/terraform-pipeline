@@ -48,11 +48,6 @@ resource "ontap_svm" "svm" {
 		gateway = "10.216.2.1"
 	}	
 }
-/*
-resource "ontap_iscsi_service" "iscsi0" {
-	svm_name = "svm1"
-}
-
 
 resource "ontap_export_policy" "ep1" {
 	name = "terraform"
@@ -76,6 +71,10 @@ resource "ontap_export_policy" "ep1" {
 		anonymous_user = 0
 		clients = [ "172.16.0.0/16" ]
 	}
+}
+/*
+resource "ontap_iscsi_service" "iscsi0" {
+	svm_name = "svm1"
 }
 
 resource "ontap_volume" "vol2" {
