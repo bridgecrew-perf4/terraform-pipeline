@@ -51,7 +51,7 @@ resource "ontap_svm" "svm" {
 
 resource "ontap_export_policy" "ep1" {
 	name = "terraform"
-	svm_name = "svm1"
+	svm_name = ontap_svm.svm.name
 	
 	rule {
 		superuser = [ "sys" ]
