@@ -5,5 +5,7 @@ terraform {
     key         = "jenkins-test"
     region      = "eu-west-2"
     encrypt     = true
+    access_key  = var.AWS_ACCESS_KEY
+    secrey_key  = var.AWS_SECRET_KEY
   }
 }
