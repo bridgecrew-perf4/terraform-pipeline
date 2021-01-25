@@ -50,7 +50,7 @@ resource "ontap_svm" "svm" {
 resource "ontap_volume" "vol2" {
 	name 		= "vol_terraform"
 	svm_name 	= ontap_svm.svm.name
-	size 		= 20971520 * 3
+	size 		= 20971520 * 4
 	export_policy	= ontap_export_policy.ep1.name
 	aggregate {
 		name 	= data.ontap_aggregate.aggr0.name
