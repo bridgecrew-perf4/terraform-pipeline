@@ -8,8 +8,8 @@ terraform {
 }
 
 provider "ontap" {
-	username = var.ONTAP_USERNAME
-	password = var.ONTAP_PASSWORD
+	username = var.ontap_username
+	password = var.ontap_password
 	cluster = var.ONTAP_CLUSTER
 }
 
