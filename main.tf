@@ -13,9 +13,7 @@ provider "ontap" {
 	cluster = var.ontap_cluster
 }
 
-/*
 data "ontap_aggregate" "aggr0" {}
-*/
 
 data "ontap_cluster" "cluster" {}
 
@@ -48,6 +46,17 @@ resource "ontap_svm" "svm" {
 		gateway = "10.216.2.1"
 	}	
 }
+
+resource "ontap_volume" "vol2" {
+	name 		= "terraform"
+	svm_name 	= ontap_svm.svm.name
+	size 		= 20971520 * 3
+	export_policy	= ontap_export_policy.ep1.name
+	aggregate {
+		name 	= data.ontap_aggregate.aggr0.name
+	}
+} 
+
 
 resource "ontap_export_policy" "ep1" {
 	name = "terraform"
@@ -112,16 +121,6 @@ resource "ontap_volume" "clone" {
 		name = data.ontap_aggregate.aggr0.name
 	}
 }
-
-resource "ontap_volume" "vol2" {
-	name 			= "terraform"
-	svm_name 		= ontap_svm.svm.name
-	size 			= 20971520 * 3
-	export_policy	= "default" // ontap_export_policy.ep1.name
-	aggregate {
-		name = data.ontap_aggregate.aggr0.name
-	}
-} 
 
 resource "ontap_igroup" "ig0" {
 	name 		= "terraform"
