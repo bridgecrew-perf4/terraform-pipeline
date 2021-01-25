@@ -48,6 +48,10 @@ resource "ontap_svm" "svm" {
 }
 
 resource "ontap_volume" "vol2" {
+	lifecycle {
+		# Ignore changes to the aggregate selection
+		ignore_changes = [ aggregate ]
+	}	
 	name 		= "vol_terraform"
 	svm_name 	= ontap_svm.svm.name
 	size 		= 20971520 * 4
@@ -87,11 +91,15 @@ resource "ontap_iscsi_service" "iscsi0" {
 }
 
 resource "ontap_volume" "vol2" {
+	lifecycle {
+		# Ignore changes to the aggregate selection
+		ignore_changes = [ aggregate ]
+	}
 	name 			= "terraform3"
 	svm_name 		= ontap_svm.svm.name
 	language		= "ar"
 	size 			= 20971520
-	export_policy	= "default" // ontap_export_policy.ep1.name
+	export_policy		= "default" // ontap_export_policy.ep1.name
 	aggregate {
 		name = data.ontap_aggregate.aggr0.name
 	}
