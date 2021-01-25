@@ -19,8 +19,8 @@ pipeline {
         stage('Plan') {
             steps {
                 withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins']) {
-                    sh 'terraform init -input=false'
-                    sh "terraform plan -input=false -out tfplan"
+                    sh 'terraform init -no-color -input=false'
+                    sh "terraform plan -no-color -input=false -out tfplan"
                     sh 'terraform show -no-color tfplan > tfplan.txt'         
                 }
             }
@@ -45,7 +45,7 @@ pipeline {
         stage('Apply') {
             steps {
                 withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins/']) {
-                    sh "terraform apply -input=false tfplan"
+                    sh "terraform apply -no-color -input=false tfplan"
                 }                
             }
         }
