@@ -9,10 +9,7 @@ pipeline {
         TF_IN_AUTOMATION            = '1'
         ONTAP_CREDS                 = credentials('ONTAP_CREDENTIALS')
         AWS_ACCESS_KEY_ID           = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY       = credentials('AWS_SECRET_ACCESS_KEY')
-        TF_VAR_ONTAP_USERNAME       = '$ONTAP_CREDS_USR'
-        TF_VAR_ONTAP_PASSWORD       = '$ONTAP_CREDS_PSW'
-        TF_VAR_ONTAP_CLUSTER        = '10.216.2.130'        
+        AWS_SECRET_ACCESS_KEY       = credentials('AWS_SECRET_ACCESS_KEY')    
     }
 
     stages {
@@ -20,7 +17,7 @@ pipeline {
             steps {
                 withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins']) {
                     sh 'terraform init -no-color -input=false'
-                    sh 'terraform plan -no-color -input=false -out tfplan -var ontap_username=$ONTAP_CREDS_USR -var ontap_password=$ONTAP_CREDS_PSW'
+                    sh 'terraform plan -no-color -input=false -out tfplan -var ontap_username=$ONTAP_CREDS_USR -var ontap_password=$ONTAP_CREDS_PSW -var ontap_cluster=10.216.2.130'
                     sh 'terraform show -no-color tfplan > tfplan.txt'         
                 }
             }
