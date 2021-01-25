@@ -57,7 +57,7 @@ resource "ontap_volume" "vol2" {
 	size 		= 20971520 * 4
 	export_policy	= ontap_export_policy.ep1.name
 	aggregate {
-		name 	= data.ontap_aggregate.aggr0.name
+		name 	= "aggr01"
 	}
 } 
 
