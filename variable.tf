@@ -6,3 +6,7 @@ variable "ontap_password" {
 variable "ontap_username" {
   type = string
 }
+
+variable "ontap_cluster" {
+  type = string
+}
