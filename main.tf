@@ -48,7 +48,7 @@ resource "ontap_svm" "svm" {
 }
 
 resource "ontap_volume" "vol2" {
-	name 		= "terraform"
+	name 		= "vol-terraform"
 	svm_name 	= ontap_svm.svm.name
 	size 		= 20971520 * 3
 	export_policy	= ontap_export_policy.ep1.name
