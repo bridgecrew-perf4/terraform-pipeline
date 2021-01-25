@@ -10,7 +10,7 @@ terraform {
 provider "ontap" {
 	username = var.ontap_username
 	password = var.ontap_password
-	cluster = var.ONTAP_CLUSTER
+	cluster = var.ontap_cluster
 }
 
 /*
