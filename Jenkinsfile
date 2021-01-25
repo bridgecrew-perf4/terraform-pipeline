@@ -20,7 +20,7 @@ pipeline {
             steps {
                 withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins']) {
                     sh 'terraform init -no-color -input=false'
-                    sh "terraform plan -no-color -input=false -out tfplan -var 'ontap_username=$ONTAP_CREDS_USR' -var 'ontap_password=$ONTAP_CREDS_PSW'"
+                    sh 'terraform plan -no-color -input=false -out tfplan -var ontap_username=$ONTAP_CREDS_USR -var ontap_password=$ONTAP_CREDS_PSW'
                     sh 'terraform show -no-color tfplan > tfplan.txt'         
                 }
             }
