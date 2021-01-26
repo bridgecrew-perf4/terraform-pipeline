@@ -7,7 +7,7 @@ pipeline {
     }
 
     parameters {
-        booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
+        booleanParam(name: 'autoApprove', defaultValue: true, description: 'Automatically run apply after generating plan?')
     }
     
     environment {
@@ -20,11 +20,9 @@ pipeline {
     stages {
         stage('Plan') {
             steps {
-                withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins']) {
-                    sh 'terraform init -no-color -input=false'
-                    sh 'terraform plan -no-color -input=false -out tfplan -var ontap_username=$ONTAP_CREDS_USR -var ontap_password=$ONTAP_CREDS_PSW -var ontap_cluster=10.216.2.130'
-                    sh 'terraform show -no-color tfplan > tfplan.txt'         
-                }
+                sh 'terraform init -no-color -input=false'
+                sh 'terraform plan -no-color -input=false -out tfplan -var ontap_username=$ONTAP_CREDS_USR -var ontap_password=$ONTAP_CREDS_PSW -var ontap_cluster=10.216.2.130'
+                sh 'terraform show -no-color tfplan > tfplan.txt'         
             }
         }
 
@@ -46,9 +44,7 @@ pipeline {
 
         stage('Apply') {
             steps {
-                withEnv(['PATH+TERRAFORM=/var/lib/jenkins/plugins/']) {
-                    sh "terraform apply -no-color -input=false tfplan"
-                }                
+                sh "terraform apply -no-color -input=false tfplan"              
             }
         }
     }
