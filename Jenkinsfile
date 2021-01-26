@@ -2,7 +2,7 @@ pipeline {
     agent { 
         docker { 
             image 'hashicorp/terraform:latest' 
-            args  '--entrypoint="" -u root'
+            args  '--entrypoint="" -u root -v /var/lib/jenkins/.terraform.d:/root/.terraform.d'
         } 
     }
 
