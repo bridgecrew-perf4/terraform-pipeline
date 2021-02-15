@@ -73,7 +73,7 @@ resource "ontap_export_policy" "ep1" {
 		rw_rule = [ "sys" ]
 		ro_rule = [ "sys" ]
 		protocols = [ "nfs" ]
-		clients = [ "10.249.13.0/24" ]
+		clients = [ "10.249.12.0/24" ]
 	}
 
 	rule {
